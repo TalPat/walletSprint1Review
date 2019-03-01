@@ -2,10 +2,10 @@ import * as mysql from 'mysql'
 import * as sqlite3 from 'sqlite3'
 require('dotenv').config()
 
-export function query (sqlQuery: string, callback: any) {
+export function query (sqlQuery: string, callback: (err: mysql.MysqlError | object, result: object) => void) {
   if (process.env.ACTIVEDB === 'MySQL') {
 
-    //sqlQuery = mysql.escape(sqlQuery)
+    // sqlQuery = mysql.escape(sqlQuery)
 
     const connectDb = (mysql.createConnection({
       host		: process.env.DBHOST,
@@ -21,11 +21,12 @@ export function query (sqlQuery: string, callback: any) {
     })
 
   } else {
-    const db: any = new sqlite3.Database(process.env.DBNAME)
+    const dbname: string = process.env.DBNAME
+    const db: any = new sqlite3.Database(dbname) // as string)
 
-    //sqlQuery = sqlite3.escape(sqlQuery)
+    // sqlQuery = sqlite3.escape(sqlQuery)
 
-    db.all(sqlQuery, (err, result) => {
+    db.all(sqlQuery, (err: object, result: object) => {
       if (err) {
         console.log(err)
       }
