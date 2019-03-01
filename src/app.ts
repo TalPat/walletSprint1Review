@@ -1,6 +1,6 @@
-// import * as bodyParser from 'body-parser'
+import * as bodyParser from 'body-parser'
 import * as express from 'express'
-import * as accountCon from './controllers/account.controller'
+import * as accountCon from './controllers/account.controllers'
 // import * as jwtController from './controllers/jwtcontroller'
 // import * as transaction from './controllers/transaction'
 // import * as user from './controllers/user'
@@ -11,7 +11,7 @@ import * as accountCon from './controllers/account.controller'
 const app = express()
 module.exports = app
 app.set('port', 3000)
-// app.use(bodyParser.json())
+app.use(bodyParser.json())
 
 app.post('/account', accountCon.createAccount)
   // { accountName, ownerUserId, balance }

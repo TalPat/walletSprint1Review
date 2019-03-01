@@ -1,6 +1,6 @@
 export interface Account {
-  accountId: number,
-  accountName: string,
-  ownerUserID: number,
-  balance: number
+  accountID?: number,
+  accountName?: string,
+  ownerUserID?: number,
+  balance?: number
 }

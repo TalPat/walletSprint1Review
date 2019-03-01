@@ -1,19 +1,20 @@
 import { Request, Response } from 'express'
-import * as accountDom from './datalayer/account.domain'
+import * as accountDom from '../datalayer/account.domain'
 import * as accInterface from '../interfaces/account.interface'
 
 export function createAccount (req: Request, res: Response) {
   const data = req.body
   const account: accInterface.Account = {
-    accountID: null,
     accountName: data.accountName,
     ownerUserID: 21,
     balance: data.balance }
-  if (!accountDom.createAccount(account)) {
-    res.status(500).send('Account creation failed')
-  } else {
-    res.send('Account created')
-  }
+  accountDom.createAccount(account, function (result) {
+    if (result.error) {
+      res.status(500).send('Account creation failed')
+    } else {
+      res.send('Account created')
+    }
+  })
 
     // valiidate
     // if validate fails, return 'invalid inputs'
