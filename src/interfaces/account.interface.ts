@@ -1,6 +1,6 @@
-interface Account {
+export interface Account {
   accountId: number,
   accountName: string,
-  ownerUserId: number,
+  ownerUserID: number,
   balance: number
 }

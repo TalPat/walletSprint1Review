@@ -3,7 +3,7 @@ const sqlite3 = require('sqlite3')
 const dotenv = require('dotenv').config()
 
 
-let mysqlInit = () => {
+function mysqlInit () {
   return new Promise(function (resolve, reject) {
 
     let connectServer = (mysql.createConnection({
@@ -21,14 +21,14 @@ let mysqlInit = () => {
     }))
 
     console.log('mysql db building')
-    connectServer.query(`CREATE DATABASE IF NOT EXISTS ${process.env.DBNAME}`, (err) => {
+    connectServer.query(`CREATE DATABASE IF NOT EXISTS ${process.env.DBNAME}`, function (err) {
       if (!err) {
         connectDb.query('CREATE TABLE IF NOT EXISTS users (\
                     userID INT AUTO_INCREMENT PRIMARY KEY,\
                     userName VARCHAR(255),\
                     dateCreated datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\
                     active INT,\
-                    password VARCHAR(255));', (err) => {
+                    password VARCHAR(255));', function (err) {
           if (err) throw err
         })
         connectDb.query('CREATE TABLE IF NOT EXISTS accounts (\
@@ -36,7 +36,7 @@ let mysqlInit = () => {
                     accountName VARCHAR(255),\
                     ownerUserID INT,\
                     balance INT,\
-                    lastUpdated datetime NOT NULL DEFAULT CURRENT_TIMESTAMP);', (err) => {
+                    lastUpdated datetime NOT NULL DEFAULT CURRENT_TIMESTAMP);', function (err) {
           if (err) throw err
         })
         connectDb.query('CREATE TABLE IF NOT EXISTS transactions (\
@@ -44,7 +44,7 @@ let mysqlInit = () => {
                     dbtAccID INT,\
                     crdtAccID INT,\
                     amount INT,\
-                    date datetime NOT NULL DEFAULT CURRENT_TIMESTAMP);', (err) => {
+                    date datetime NOT NULL DEFAULT CURRENT_TIMESTAMP);', function (err) {
           if (err) throw err
         })
         connectServer.end()
