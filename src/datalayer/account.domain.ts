@@ -1,5 +1,5 @@
 import * as dbFunctions from './db'
-import { Account } from '../interfaces/accout.interface'
+import { Account } from '../interfaces/account.interface'
 
 // input object:
 // {
